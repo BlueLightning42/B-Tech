@@ -7,6 +7,7 @@ def check_answer(desired, guessed, error_margin):
     return (desired < guessed + error_margin and desired > guessed - error_margin)
 
 def get_user_input(wanted_type):
+    """Abstract away the loop asking the user for input."""
     while True:
         user_input = input("Please enter your value: ")
         if user_input == "q" or user_input == "exit":
@@ -23,6 +24,7 @@ def get_user_input(wanted_type):
 
 def temperatures():
     """Module1 unit conversions with temperatures."""
+    global correct_temperature
     C = randrange(-2742, 4000, 1)/10
     K = C + 273.15
     F = C * 1.8 + 32
@@ -43,11 +45,13 @@ def temperatures():
 
     if check_answer(T2[0], guess, 0.2):
         print("correct")
+        correct_temperature += 1
     else:
         print("false the answer is {:0.2f}{}".format(*T2))
 
 def pressure():
     """Module1 Pressure unit conversions."""
+    global correct_pressure
     atmg = random()
     mmHgg = atmg * 760
     Kpag = atmg * 101.325
@@ -71,6 +75,7 @@ def pressure():
 
     if check_answer(P2[0], guess, 0.2):
         print("correct")
+        correct_pressure += 1
     else:
         # TODO FIX decimal places?
         print("false the answer is {:0.2f}{}".format(*P2))
@@ -101,9 +106,9 @@ def premade():
     global all_questions
 
     choice(all_questions)
-    temp = all_questions.pop()
+    temp = all_questions.pop(0)  # Treat scrambled list like a queue
     question,answer = temp
-    print("\n\n{}\n".format(question))
+    print("\n\n{}".format(question))
     guess = get_user_input(type(answer))
     if guess is answer:
         print("Correct the answer is: {}".format(answer))
@@ -120,6 +125,17 @@ print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n")
 # Main loop
 all_questions = Static_Questions.get_all_questions()
 shuffle(all_questions)
+correct_temperature = 0
+correct_pressure = 0
+
 while True:
-    choice([temperatures(), pressure(), premade()])
-    sleep(5000)
+    # I know this is an ugly setup with a list of functions and global counters.
+    # But honestly this looks nicer/I don't have to set up a load of if statements.
+    types_of_questions = [temperatures(), pressure(), premade()]
+    choice(types_of_questions)
+    if all_questions is None:
+        types_of_questions.remove(premade())
+    if correct_temperature == 6:
+        types_of_questions.remove(temperatures())
+    if correct_pressure == 6:
+        types_of_questions.remove(pressure())

@@ -1,5 +1,4 @@
 """Storage module to contain all the unchanging questions."""
-import random
 
 # List of true or questions along with thire answer.
 true_false_questions = [
