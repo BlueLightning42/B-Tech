@@ -28,5 +28,4 @@ multiple_choice_questions = [
 
 def get_all_questions():
     """Return all questions stored in this file."""
-    print("Loaded Static_Questions correctly")
     return multiple_choice_questions + true_false_questions
