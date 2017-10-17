@@ -126,6 +126,70 @@ def flow_rate():
     print("\n\nThis is a flow rate question.\n")
     pass
 
+def solve_mass_ballance(equation_type, d):
+    """All posible equations for: input + generation = output + consumption + accumulation."""
+    temp_out = ""
+    t,r,p = equation_type
+    for key,value in d.items():
+        if value is None:
+            print("Find the {}{} of {} when,\n".format(key, t, p))
+        elif value != 0:  # Skip empty values
+            temp_out += "{}{} is {} g{}\n".format(key, t, value, r)
+    print(temp_out)
+
+    if d["input"] is None:
+        return d["output"] + d["consumption"] + d["accumulation"] - d["generation"]
+    elif d["generation"] is None:
+        return d["output"] + d["consumption"] + d["accumulation"] - d["input"]
+    elif d["output"] is None:
+        return d["input"] + d["generation"] - d["consumption"] - d["accumulation"]
+    elif d["consumption"] is None:
+        return d["input"] + d["generation"] - d["output"] - d["accumulation"]
+    elif d["accumulation"] is None:
+        return d["input"] + d["generation"] - d["consumption"] - d["output"]
+
+def simple_mass_ballance():
+    """Mass ballance with one equation and one unknown."""
+    global correct_simple_mass
+    print("\n\nThis is a simple system ballance question.\n")
+
+    all_variables = {"input":randint(0,10), "output":randint(0,10), "generation":0, "consumption":0, "accumulation":0}
+    K1,K2,K3 = tuple(sample(set(all_variables.keys()), 3))
+    all_variables[K1] = randint(1,450)
+    all_variables[K2] = randint(1,450)
+    all_variables[K3] = None  # The variable to be found
+    equation_type = choice([("","",choice(["Steel","Chemical A"])), ("rate","/s", choice(["Sewage","Pepsi","Chemical A flow"]))])
+
+    answer = solve_mass_ballance(equation_type, all_variables)
+    guess = get_user_input(float)
+
+    if check_answer(guess,answer,0.3):
+        print("correct")
+        correct_simple_mass += 1
+    else:
+        print("false the {}{} is {} g{}".format(K3,equation_type[0], answer,equation_type[1]))
+
+def complex_mass_ballance():
+    """Mass ballance with two or more equations."""
+    global correct_complex_mass
+    print("\n\nThis is a complex system ballance question.\n")
+
+    all_variables = {"input":randint(0,10), "output":randint(0,10), "generation":0, "consumption":0, "accumulation":0}
+    K1,K2,K3 = tuple(sample(set(all_variables.keys()), 3))
+    all_variables[K1] = randint(1,450)
+    all_variables[K2] = randint(1,450)
+    all_variables[K3] = None  # The variable to be found
+    equation_type = choice([("","",choice(["Steel","Chemical A"])), ("rate","/s", choice(["Sewage","Pepsi","Chemical A flow"]))])
+
+    answer = solve_mass_ballance(equation_type, all_variables)
+    guess = get_user_input(float)
+
+    if check_answer(guess,answer,0.3):
+        print("correct")
+        correct_complex_mass += 1
+    else:
+        print("false the {}{} is {} g{}".format(K3,equation_type[0], answer,equation_type[1]))
+
 def premade():
     """List of premade questions- if you get one right its removed from potential questions."""
     global all_questions
@@ -134,7 +198,7 @@ def premade():
     temp = all_questions.pop(0)  # Treat scrambled list like a queue
     question,answer = temp
     print("\n\n{}".format(question))
-    guess = get_user_input(type(answer))
+    guess = get_user_input(type(int))
     if guess == answer:
         print("Correct the answer is: {}".format(answer))
     else:
@@ -147,3 +211,5 @@ shuffle(all_questions)
 correct_temperature = 0
 correct_pressure = 0
 correct_fraction = 0
+correct_simple_mass = 0
+correct_complex_mass = 0

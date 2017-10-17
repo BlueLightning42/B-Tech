@@ -1,5 +1,5 @@
 """Console program designed to generate and ask random chem eng questions then check your answers for them."""
-from Dynamic_Questions import temperatures, pressure, fraction, premade
+from Dynamic_Questions import temperatures, pressure, fraction, premade, simple_mass_ballance
 import Dynamic_Questions as q
 from random import choice
 
@@ -15,16 +15,18 @@ while True:
     # Was thinking of having a list of tuples with (func,counter) then returning the counter each time etc...
     # counter = func(counter) but that seems ugly just to maintain the correct OOP...
     # and again I want to randomly chose each function so this seems the best.
-    types_of_questions = [temperatures, pressure, fraction, premade]
+    types_of_questions = [simple_mass_ballance,premade,pressure,temperatures,fraction]
     choice(types_of_questions)()  # Randomly calls one of the functions
     if not q.all_questions:
         types_of_questions.remove(premade)
-    elif q.correct_temperature >= 6:
+    elif q.correct_temperature >= 4:
         types_of_questions.remove(temperatures)
-    elif q.correct_pressure >= 5:
+    elif q.correct_pressure >= 4:
         types_of_questions.remove(pressure)
-    elif q.correct_fraction >= 3:
+    elif q.correct_fraction >= 2:
         types_of_questions.remove(fraction)
+    elif q.correct_simple_mass >= 4:
+        types_of_questions.remove(simple_mass_ballance)
 
     if not types_of_questions:
         print("\n  - You have finished all the questions!")

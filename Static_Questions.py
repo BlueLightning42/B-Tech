@@ -2,7 +2,7 @@
 
 # List of true or questions along with thire answer.
 true_false_questions = [
- ("Is [Input Rate + Generation Rate == Output Rate + Consumption Rate + Accumulation Rate] a Integral Ballance Question? T/F", False),
+ ("Is [Input Rate + Generation Rate == Output Rate + Consumption Rate + Accumulation Rate] a Integral Balance Question? T/F", False),
  ("An Integral Ballance Has units of the Ballanced quatity (Amount of input vs rate)? T/F", True),
  ("If there are zero degrees of freedom the question can easily be solved? T/F", True),
  ("Can a question with 2 degree of freedom be solved right away? T/F", False),
