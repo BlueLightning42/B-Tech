@@ -20,6 +20,8 @@ def get_user_input(wanted_type):
             if wanted_type == str:
                 answer = user_input.strip().upper()
                 if answer in {"A","B","C","D","E"}: return answer
+                if user_input.strip() in {"true","t","True","T","yes"}: return "T"
+                if user_input.strip() in {"false","f","False","F","no"}: return "F"
                 raise ValueError  # If not one of the possible errors
 
             return wanted_type(user_input)  # Convert input to wanted_type
@@ -27,7 +29,7 @@ def get_user_input(wanted_type):
             if wanted_type == bool:
                 print("Please give either true or false as your answer.")
             elif wanted_type == str:
-                print("Please give either A B C or D as your answer.")
+                print("Please give either A B C D or T/F as your answer.")
             elif wanted_type == float:
                 print("Please provide your answer as a number to 2 decimal places.")
             elif wanted_type == int:
@@ -158,7 +160,7 @@ def simple_mass_ballance():
     all_variables[K1] = randint(1,450)
     all_variables[K2] = randint(1,450)
     all_variables[K3] = None  # The variable to be found
-    equation_type = choice([("","",choice(["Steel","Chemical A"])), ("rate","/s", choice(["Sewage","Pepsi","Chemical A flow"]))])
+    equation_type = choice([("","",choice(["Steel","Chemical A"])), ("rate","/s", choice(["Sewage","Pepsi","Chemical A flow", "Glue", "Glowing Substance", "H2SO4"]))])
 
     answer = solve_mass_ballance(equation_type, all_variables)
     guess = get_user_input(float)
@@ -198,7 +200,11 @@ def premade():
     temp = all_questions.pop(0)  # Treat scrambled list like a queue
     question,answer = temp
     print("\n\n{}".format(question))
-    guess = get_user_input(type(int))
+    guess = get_user_input(str)
+
+    if guess == "T": guess = True
+    if guess == "F": guess = False
+
     if guess == answer:
         print("Correct the answer is: {}".format(answer))
     else:

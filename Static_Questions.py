@@ -7,7 +7,12 @@ true_false_questions = [
  ("If there are zero degrees of freedom the question can easily be solved? T/F", True),
  ("Can a question with 2 degree of freedom be solved right away? T/F", False),
  ("Are more degrees of freedom good? They make you more free so you can do more stuff? T/F", False),
- ("Is this correct? An Integral Ballance Is typically applied to continuous processes while a Differential is applied to Batch processes? T/F", False)
+ ("Is this correct? An Integral Ballance Is typically applied to continuous processes while a Differential is applied to Batch processes? T/F", False),
+ ("Henry's Law is Pa = Ya×P = Xa×Ha(T) is it valid when Xa is close to 1 T/F", False),
+ ("Raults's Law is Pa = Ya×P = Xa×Pa*(T) is it valid when Xa is close to 1 T/F", True),
+ ("A Closed System Means no mass crosses the system boundairy T/F", True),
+ ("Heat is Positive if its transfered from the suroundings to the system T/F", True),
+ ("Work is Positive if its transfered from the suroundings to the system T/F", False)
 ]
 
 # List of multiple choice questions along with thire answer.
@@ -17,6 +22,12 @@ multiple_choice_questions = [
  [B]♦ Provides what happens at every instance in time.
  [C]♦ Proves what happens Between two instances in time.
  [D]♦ Typically applied to continuous processes.
+ ""","C"),
+ ("""Which of the following is a Extensive Property
+ [A]♦ Temperature
+ [B]♦ Pressure
+ [C]♦ Volume
+ [D]♦ Age
  ""","C"),
  ("""Which of the following are incorrect?
  [A]♦ If a substance is total mass Generation is = Accumulation.
